@@ -1,23 +1,45 @@
-
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'eclipse'
 
-compileJava{
-    //소스파일이 UTF8규칙에 따라 저장되었음을 컴파일러에 알림
-    options.encoding = 'UTF-8'
+eclipse {
+  jdt {
+  
+    sourceCompatibility = 9
+    targetCompatibility = 9
+    javaRuntimeName = "JavaSE-9"
+
+    file {
+    
+      whenMerged { jdt
+   
+      }
+
+   
+      withProperties { properties ->
+      properties["org.eclipse.jdt.core.compiler.codegen.targetPlatform"]= "9"
+      properties["org.eclipse.jdt.core.compiler.source"]= "9"
+      properties["org.eclipse.jdt.core.compiler.compliance"] = "9"  
+        
+      }
+    }
+  }
 }
+sourceCompatibility = 9
+targetCompatibility = 9
 
+compileJava {
+    options.encoding = 'UTF-8'   
+}
+javadoc {
+    options.encoding = "UTF-8"
+}
 repositories {
     jcenter()
 }
-
 dependencies {
     compile 'com.google.guava:guava:22.0'
     testCompile 'junit:junit:4.12'
 }
+mainClassName = 'App'
 
-mainClassName = 'Hello'
-
-javadoc {
-    options.encoding = "UTF-8"
-}
